@@ -1,0 +1,79 @@
+/* Fundo escuro do navegador imitando o leitor de PDF */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #525659; 
+    display: flex;
+    justify-content: center;
+}
+
+/* A estrutura da "Folha" A4 com sombra para destacar do fundo */
+.page {
+    width: 21cm;
+    height: 29.7cm; /* Altura fixa de uma folha A4 */
+    background: #ffffff; 
+    margin: 2cm auto;
+    display: flex;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    box-sizing: border-box;
+    overflow: hidden; /* Evita que o conteúdo vaze da folha */
+}
+
+/* Barra Lateral Esquerda */
+.sidebar {
+    width: 32%;
+    background-color: #293d4a; 
+    padding: 30px 25px; /* Margens reduzidas para caber mais conteúdo */
+    color: #c2cbd1; 
+    box-sizing: border-box;
+}
+
+/* Conteúdo Principal Direita */
+.main {
+    width: 68%;
+    background-color: #ffffff;
+    padding: 30px 35px; /* Margens reduzidas para caber mais conteúdo */
+    color: #333333;
+    box-sizing: border-box;
+}
+
+/* Tipografia e Espaçamentos Gerais */
+h1 { font-size: 22pt; font-weight: bold; margin: 0 0 5px 0; color: #000000; letter-spacing: -0.5px; line-height: 1.1; }
+h2.subtitle { font-size: 12pt; font-weight: normal; margin: 0 0 5px 0; color: #333333; line-height: 1.3; }
+.location { font-size: 10pt; color: #737373; margin-bottom: 15px; font-weight: normal; }
+
+/* Títulos das Seções */
+.main h3 { font-size: 12pt; font-weight: bold; margin-top: 15px; margin-bottom: 8px; color: #333333; border-bottom: 1px solid #eeeeee; padding-bottom: 3px; }
+.sidebar h3 { font-size: 11pt; font-weight: bold; margin-top: 20px; margin-bottom: 10px; color: #ffffff; }
+
+/* Parágrafos */
+p { font-size: 9.5pt; line-height: 1.4; margin: 0 0 10px 0; text-align: justify; color: #333333; }
+
+ul { padding-left: 0; list-style-type: none; margin: 0; }
+.sidebar ul li { font-size: 9.5pt; margin-bottom: 6px; color: #c2cbd1; line-height: 1.4; }
+
+/* Agrupamentos para experiências e educação */
+.experience-block, .education-block { margin-bottom: 12px; }
+
+/* Estilos específicos para as experiências e educação */
+.company { font-weight: bold; font-size: 10.5pt; margin: 0 0 2px 0; color: #333333; }
+.job-title { font-size: 10pt; margin: 0 0 2px 0; color: #333333; font-weight: normal; font-style: italic; }
+.date-duration { font-size: 9pt; color: #737373; margin: 0 0 4px 0; }
+
+/* Estilos de Contato na lateral */
+.contact-item { margin-bottom: 12px; font-size: 9.5pt; line-height: 1.4; word-break: break-all; }
+.contact-item span { display: block; font-weight: bold; margin-bottom: 2px; color: #ffffff; font-size: 10pt; }
+.contact-item a { color: #c2cbd1; text-decoration: none; }
+
+/* Regras para Impressão (Salvar como PDF) */
+@media print {
+    body { background-color: #ffffff; }
+    .page { 
+        margin: 0; 
+        box-shadow: none; 
+        width: 100%; 
+        height: 100%; 
+        page-break-after: avoid; 
+    }
+}
