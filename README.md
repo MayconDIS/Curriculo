@@ -1,2 +1,2 @@
-# Curriculo_Html
+# Curriculo_HTML_CSS
 
