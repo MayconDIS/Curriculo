@@ -16,17 +16,16 @@ def salvar_dados(dados):
 
 def calcular_status(dados):
     total_xp = sum(p['xp_ganho'] for p in dados['projetos']) + sum(h['xp'] for h in dados['habilidades'])
-    if total_xp < 500: rank = "Ferro", ft.colors.BLUE_GREY_400
-    elif total_xp < 1000: rank = "Bronze", ft.colors.BROWN_400
-    elif total_xp < 1500: rank = "Prata", ft.colors.GREY_400
-    elif total_xp < 2200: rank = "Ouro", ft.colors.AMBER_400
-    elif total_xp < 3000: rank = "Platina", ft.colors.CYAN_300
-    else: rank = "Diamante", ft.colors.PURPLE_300
+    if total_xp < 500: rank = "Ferro", ft.Colors.BLUE_GREY_400
+    elif total_xp < 1000: rank = "Bronze", ft.Colors.BROWN_400
+    elif total_xp < 1500: rank = "Prata", ft.Colors.GREY_400
+    elif total_xp < 2200: rank = "Ouro", ft.Colors.AMBER_400
+    elif total_xp < 3000: rank = "Platina", ft.Colors.CYAN_300
+    else: rank = "Diamante", ft.Colors.PURPLE_300
     return total_xp, rank[0], rank[1]
 
 # --- INTERFACE GRÁFICA COM FLET ---
 def main(page: ft.Page):
-    # ATUALIZAÇÃO: Os comandos de janela agora ficam dentro de page.window
     page.title = "Sistema de Progressão Profissional - Nível ADS"
     page.window.width = 1920
     page.window.height = 1200
@@ -38,7 +37,7 @@ def main(page: ft.Page):
 
     # --- COMPONENTES VISUAIS ---
     texto_rank = ft.Text(size=30, weight=ft.FontWeight.BOLD)
-    texto_xp = ft.Text(size=20, color=ft.colors.WHITE70)
+    texto_xp = ft.Text(size=20, color=ft.Colors.WHITE_70)
     lista_projetos = ft.Column(spacing=10, scroll=ft.ScrollMode.AUTO, height=400)
 
     def atualizar_dashboard():
@@ -48,17 +47,18 @@ def main(page: ft.Page):
         texto_xp.value = f"Total Acumulado: {total_xp} XP"
         
         lista_projetos.controls.clear()
-        for p in reversed(dados['projetos']): # Mostra os mais recentes primeiro
+        for p in reversed(dados['projetos']): 
             card = ft.Card(
                 content=ft.Container(
                     padding=15,
+                    bgcolor="#2d323e", # <--- CORRIGIDO: A cor agora fica no Container
+                    border_radius=10,
                     content=ft.Column([
                         ft.Text(p['nome'], weight=ft.FontWeight.BOLD, size=16),
-                        ft.Text(p['tipo'], size=12, color=ft.colors.WHITE54),
-                        ft.Text(f"+{p['xp_ganho']} XP", color=ft.colors.GREEN_400, weight=ft.FontWeight.BOLD)
+                        ft.Text(p['tipo'], size=12, color=ft.Colors.WHITE_54),
+                        ft.Text(f"+{p['xp_ganho']} XP", color=ft.Colors.GREEN_400, weight=ft.FontWeight.BOLD)
                     ])
-                ),
-                color="#2d323e"
+                )
             )
             lista_projetos.controls.append(card)
         page.update()
@@ -66,15 +66,14 @@ def main(page: ft.Page):
     # --- FUNÇÕES DE AÇÃO ---
     def adicionar_projeto(e):
         if not all([input_nome.value, input_tipo.value, input_data.value, input_desc.value, input_xp.value]):
-            # ATUALIZAÇÃO: Novo jeito de mostrar as mensagens flutuantes (SnackBar)
-            page.overlay.append(ft.SnackBar(ft.Text("Preencha todos os campos da Quest!"), bgcolor=ft.colors.RED_700, open=True))
+            page.overlay.append(ft.SnackBar(ft.Text("Preencha todos os campos da Quest!"), bgcolor=ft.Colors.RED_700, open=True))
             page.update()
             return
 
         try:
             xp_int = int(input_xp.value)
         except ValueError:
-            page.overlay.append(ft.SnackBar(ft.Text("O XP precisa ser um número!"), bgcolor=ft.colors.RED_700, open=True))
+            page.overlay.append(ft.SnackBar(ft.Text("O XP precisa ser um número!"), bgcolor=ft.Colors.RED_700, open=True))
             page.update()
             return
 
@@ -93,15 +92,15 @@ def main(page: ft.Page):
         # Limpar campos
         input_nome.value = input_tipo.value = input_data.value = input_desc.value = input_xp.value = ""
         
-        page.overlay.append(ft.SnackBar(ft.Text(f"Missão Concluída! +{xp_int} XP Adicionado."), bgcolor=ft.colors.GREEN_700, open=True))
+        page.overlay.append(ft.SnackBar(ft.Text(f"Missão Concluída! +{xp_int} XP Adicionado."), bgcolor=ft.Colors.GREEN_700, open=True))
         page.update()
 
     def gerar_curriculo(e):
         try:
             subprocess.run(["python", "gerador.py"], check=True)
-            page.overlay.append(ft.SnackBar(ft.Text("Item Forjado! Currículo HTML atualizado com sucesso."), bgcolor=ft.colors.BLUE_700, open=True))
+            page.overlay.append(ft.SnackBar(ft.Text("Item Forjado! Currículo HTML atualizado com sucesso."), bgcolor=ft.Colors.BLUE_700, open=True))
         except Exception as ex:
-            page.overlay.append(ft.SnackBar(ft.Text(f"Erro ao forjar: {ex}"), bgcolor=ft.colors.RED_700, open=True))
+            page.overlay.append(ft.SnackBar(ft.Text(f"Erro ao forjar: {ex}"), bgcolor=ft.Colors.RED_700, open=True))
         
         page.update()
 
@@ -112,16 +111,17 @@ def main(page: ft.Page):
     input_desc = ft.TextField(label="Descrição da Missão", multiline=True, width=600)
     input_xp = ft.TextField(label="Recompensa de XP (Ex: 300)", width=600)
     
-    btn_adicionar = ft.ElevatedButton("Completar Quest (+XP)", icon=ft.icons.ADD_TASK, on_click=adicionar_projeto, bgcolor=ft.colors.GREEN_700, color=ft.colors.WHITE, width=600, height=50)
+    # <--- CORRIGIDO: ElevatedButton atualizado para Button
+    btn_adicionar = ft.Button("Completar Quest (+XP)", icon=ft.Icons.ADD_TASK, on_click=adicionar_projeto, bgcolor=ft.Colors.GREEN_700, color=ft.Colors.WHITE, width=600, height=50)
 
     coluna_formulario = ft.Column([
-        ft.Text("ADICIONAR NOVA MISSÃO", size=24, weight=ft.FontWeight.BOLD, color=ft.colors.BLUE_300),
+        ft.Text("ADICIONAR NOVA MISSÃO", size=24, weight=ft.FontWeight.BOLD, color=ft.Colors.BLUE_300),
         input_nome, input_tipo, input_data, input_desc, input_xp, btn_adicionar
     ], spacing=15)
 
     # --- LAYOUT DO INVENTÁRIO (DIREITA) ---
     coluna_inventario = ft.Column([
-        ft.Text("INVENTÁRIO DE PROJETOS", size=24, weight=ft.FontWeight.BOLD, color=ft.colors.BLUE_300),
+        ft.Text("INVENTÁRIO DE PROJETOS", size=24, weight=ft.FontWeight.BOLD, color=ft.Colors.BLUE_300),
         lista_projetos
     ], spacing=15)
 
@@ -134,12 +134,13 @@ def main(page: ft.Page):
         width=1920
     )
 
-    btn_gerar = ft.ElevatedButton(
+    # <--- CORRIGIDO: ElevatedButton atualizado para Button
+    btn_gerar = ft.Button(
         "FORJAR CURRÍCULO (GERAR HTML)", 
-        icon=ft.icons.HARDWARE, 
+        icon=ft.Icons.HARDWARE, 
         on_click=gerar_curriculo, 
-        bgcolor=ft.colors.BLUE_700, 
-        color=ft.colors.WHITE, 
+        bgcolor=ft.Colors.BLUE_700, 
+        color=ft.Colors.WHITE, 
         width=1920, 
         height=80,
         style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10))
@@ -148,9 +149,9 @@ def main(page: ft.Page):
     # --- MONTAGEM DA PÁGINA ---
     page.add(
         painel_status,
-        ft.Divider(height=40, color=ft.colors.TRANSPARENT),
-        ft.Row([coluna_formulario, ft.VerticalDivider(width=40, color=ft.colors.TRANSPARENT), coluna_inventario], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, vertical_alignment=ft.CrossAxisAlignment.START),
-        ft.Divider(height=40, color=ft.colors.TRANSPARENT),
+        ft.Divider(height=40, color=ft.Colors.TRANSPARENT),
+        ft.Row([coluna_formulario, ft.VerticalDivider(width=40, color=ft.Colors.TRANSPARENT), coluna_inventario], alignment=ft.MainAxisAlignment.SPACE_BETWEEN, vertical_alignment=ft.CrossAxisAlignment.START),
+        ft.Divider(height=40, color=ft.Colors.TRANSPARENT),
         btn_gerar
     )
 
