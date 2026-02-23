@@ -1,0 +1,39 @@
+{
+    "perfil": {
+        "nome": "Maycon Douglas",
+        "titulo": "Estudante de Análise e Desenvolvimento de Sistemas",
+        "local": "São José dos Campos, SP, Brasil",
+        "telefone": "(12) 99183-8082",
+        "email": "mayconinveste@gmail.com",
+        "linkedin": "linkedin.com/in/maycondis",
+        "github": "github.com/MayconDIS",
+        "resumo": "Estudante do 3º semestre de Análise e Desenvolvimento de Sistemas, em busca da primeira oportunidade na área de tecnologia (Estágio/Júnior). Possuo conhecimentos práticos em linguagens como Python e C, e atualmente aprofundo meus estudos em C# e Java. Entusiasta de Inteligência Artificial e Data Science."
+    },
+    "curso": {
+        "inicio": "2025-07-21",
+        "fim": "2027-07-21"
+    },
+    "habilidades": [
+        {"nome": "Python", "nivel": 5, "xp": 300},
+        {"nome": "C", "nivel": 4, "xp": 200},
+        {"nome": "C#", "nivel": 2, "xp": 100},
+        {"nome": "Java", "nivel": 2, "xp": 100},
+        {"nome": "Linux Zorin OS", "nivel": 4, "xp": 150}
+    ],
+    "projetos": [
+        {
+            "nome": "Sistema de Gestão e Reserva Data Show",
+            "tipo": "Aplicação Modular em Python",
+            "data": "Fevereiro de 2026",
+            "descricao": "Desenvolvimento de uma aplicação modular em Python para o gerenciamento de reservas. Implementação de algoritmo inteligente para alocação de responsáveis e geração de PDF.",
+            "xp_ganho": 500
+        },
+        {
+            "nome": "Sistema Acadêmico Colaborativo (PIM II)",
+            "tipo": "Projeto Integrado Multidisciplinar",
+            "data": "Outubro de 2025",
+            "descricao": "Idealização de um sistema focado em colaboração estudantil com integrações de IA.",
+            "xp_ganho": 350
+        }
+    ]
+}
