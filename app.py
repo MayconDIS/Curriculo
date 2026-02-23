@@ -2,7 +2,6 @@ import flet as ft
 import json
 import os
 import subprocess
-from datetime import datetime
 
 ARQUIVO_JSON = 'dados.json'
 
@@ -27,10 +26,10 @@ def calcular_status(dados):
 
 # --- INTERFACE GRÁFICA COM FLET ---
 def main(page: ft.Page):
-    # Configurações da Janela 1920x1200
+    # ATUALIZAÇÃO: Os comandos de janela agora ficam dentro de page.window
     page.title = "Sistema de Progressão Profissional - Nível ADS"
-    page.window_width = 1920
-    page.window_height = 1200
+    page.window.width = 1920
+    page.window.height = 1200
     page.theme_mode = ft.ThemeMode.DARK
     page.padding = 40
     page.bgcolor = "#1a1c23" # Fundo escuro gamer
@@ -67,16 +66,15 @@ def main(page: ft.Page):
     # --- FUNÇÕES DE AÇÃO ---
     def adicionar_projeto(e):
         if not all([input_nome.value, input_tipo.value, input_data.value, input_desc.value, input_xp.value]):
-            page.snack_bar = ft.SnackBar(ft.Text("Preencha todos os campos da Quest!"), bgcolor=ft.colors.RED_700)
-            page.snack_bar.open = True
+            # ATUALIZAÇÃO: Novo jeito de mostrar as mensagens flutuantes (SnackBar)
+            page.overlay.append(ft.SnackBar(ft.Text("Preencha todos os campos da Quest!"), bgcolor=ft.colors.RED_700, open=True))
             page.update()
             return
 
         try:
             xp_int = int(input_xp.value)
         except ValueError:
-            page.snack_bar = ft.SnackBar(ft.Text("O XP precisa ser um número!"), bgcolor=ft.colors.RED_700)
-            page.snack_bar.open = True
+            page.overlay.append(ft.SnackBar(ft.Text("O XP precisa ser um número!"), bgcolor=ft.colors.RED_700, open=True))
             page.update()
             return
 
@@ -95,19 +93,16 @@ def main(page: ft.Page):
         # Limpar campos
         input_nome.value = input_tipo.value = input_data.value = input_desc.value = input_xp.value = ""
         
-        page.snack_bar = ft.SnackBar(ft.Text(f"Missão Concluída! +{xp_int} XP Adicionado."), bgcolor=ft.colors.GREEN_700)
-        page.snack_bar.open = True
+        page.overlay.append(ft.SnackBar(ft.Text(f"Missão Concluída! +{xp_int} XP Adicionado."), bgcolor=ft.colors.GREEN_700, open=True))
         page.update()
 
     def gerar_curriculo(e):
         try:
-            # Chama o seu script gerador.py
             subprocess.run(["python", "gerador.py"], check=True)
-            page.snack_bar = ft.SnackBar(ft.Text("Item Forjado! Currículo HTML atualizado com sucesso."), bgcolor=ft.colors.BLUE_700)
+            page.overlay.append(ft.SnackBar(ft.Text("Item Forjado! Currículo HTML atualizado com sucesso."), bgcolor=ft.colors.BLUE_700, open=True))
         except Exception as ex:
-            page.snack_bar = ft.SnackBar(ft.Text(f"Erro ao forjar: {ex}"), bgcolor=ft.colors.RED_700)
+            page.overlay.append(ft.SnackBar(ft.Text(f"Erro ao forjar: {ex}"), bgcolor=ft.colors.RED_700, open=True))
         
-        page.snack_bar.open = True
         page.update()
 
     # --- LAYOUT DO FORMULÁRIO (ESQUERDA) ---
@@ -136,17 +131,16 @@ def main(page: ft.Page):
         padding=30,
         bgcolor="#2d323e",
         border_radius=15,
-        width=page.window_width
+        width=1920
     )
 
-    # BOTÃO GIGANTE DE AÇÃO
     btn_gerar = ft.ElevatedButton(
         "FORJAR CURRÍCULO (GERAR HTML)", 
         icon=ft.icons.HARDWARE, 
         on_click=gerar_curriculo, 
         bgcolor=ft.colors.BLUE_700, 
         color=ft.colors.WHITE, 
-        width=page.window_width, 
+        width=1920, 
         height=80,
         style=ft.ButtonStyle(shape=ft.RoundedRectangleBorder(radius=10))
     )
@@ -162,4 +156,4 @@ def main(page: ft.Page):
 
     atualizar_dashboard()
 
-ft.app(target=main)
+ft.run(main)
