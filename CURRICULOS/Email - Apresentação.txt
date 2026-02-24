@@ -1,0 +1,19 @@
+Assunto: Candidatura à vaga de [Estágio em TI / Desenvolvedor Júnior] - Maycon Douglas
+
+Prezado(a) Recrutador(a) / Equipe de Seleção da [Nome da Empresa],
+
+Escrevo para expressar meu grande interesse na vaga de [Nome da Vaga]. Atualmente, estou no 3º semestre de Análise e Desenvolvimento de Sistemas e busco uma oportunidade para aplicar meus conhecimentos técnicos e contribuir para o sucesso dos projetos da equipe.
+
+Tenho focado meus estudos na construção de aplicações reais. Recentemente, desenvolvi de ponta a ponta um Sistema de Gestão e Reserva de Equipamentos em Python, onde estruturei um modelo modular, criei um algoritmo inteligente para alocação de equipe e implementei a geração automatizada de relatórios. Além de Python, possuo base sólida em C#, Java, modelagem de dados e ambientes Linux.
+
+Minha vivência profissional anterior como Supervisor de Atendimento e minha atual atuação na área administrativa me ensinaram a trabalhar sob pressão, resolver problemas rapidamente e, principalmente, a ter uma comunicação clara com os clientes e com a equipe – soft skills que considero fundamentais para qualquer desenvolvedor em times ágeis.
+
+Segue em anexo o meu currículo detalhado em PDF para análise. Vocês também podem conferir o código dos meus projetos diretamente no meu GitHub: github.com/MayconDIS.
+
+Agradeço desde já pelo tempo e consideração. Estou à disposição para um bate-papo ou entrevista técnica!
+
+Atenciosamente,
+
+Maycon Douglas (12) 99183-8082
+
+linkedin.com/in/maycondis
